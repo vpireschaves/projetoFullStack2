@@ -91,7 +91,7 @@ export default class UsuarioModel {
             var valores = [this.usuNome, this.#usuEmail, this.#usuSenha, this.#perfil];
         }
         else{
-            var sql = "update tb_usuario set usu_nome = ?, usu_email = ?, usu_senha = ?, perfil = ? where usu_id = ?";
+            var sql = "update tb_usuario set usu_nome = ?, usu_email = ?, usu_senha = ?, per_id = ? where usu_id = ?";
 
             var valores = [this.usuNome, this.#usuEmail, this.#usuSenha, this.#perfil. this.#usuId];
         }
