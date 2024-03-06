@@ -1,32 +1,15 @@
-let usuarios = [
-    {
-        id: 1,
-        nome: "Fulvio",
-        email: "fulvio@unoeste.br",
-        cidade: "Presidente Prudente",
-        sexo: "M",
-        idade: 26,
-        senha: 123
-    },
-    {
-        id: 2,
-        nome: "Fulano",
-        email: "fulano@unoeste.br",
-        cidade: "Presidente Prudente",
-        sexo: "M",
-        idade: 44,
-        senha: 456
-    }
-]
+import LoginModel from "../models/loginModel.js";
 
 export default class LoginController{
     
-    autenticar(req, res){
+    async autenticar(req, res){
         try{
-            if (req.body){             
-                let usuario = usuarios.filter(x => x.email == req.body.email && x.senha == req.body.senha)
+            if (req.body){     
+                let { email, senha } = req.body;
+                let loginModel = new LoginModel();
+                
 
-                if (usuario.length > 0) {
+                if (await loginModel.autenticar()){
                     res.status(200).json({tokenAcesso: "PFSII"});
                 }
                 else{
