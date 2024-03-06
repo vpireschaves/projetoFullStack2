@@ -4,7 +4,7 @@ import Autenticacao from '../middlewares/autenticacao.js';
 
 const router = express.Router();
 
-let ctrl = new PerfilController;
+let ctrl = new PerfilController();
 let auth = new Autenticacao();
 
 router.get('/', auth.validar, (req, res) => {

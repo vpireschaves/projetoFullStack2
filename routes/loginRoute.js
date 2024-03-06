@@ -3,7 +3,7 @@ import LoginController from '../controllers/loginController.js';
 
 const router = express.Router();
 
-let ctrl = new LoginController;
+let ctrl = new LoginController();
 
 router.post('/autenticar', (req, res) => {
     // #swagger.tags = ['Login']

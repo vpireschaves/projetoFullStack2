@@ -395,7 +395,16 @@
       },
       "perfilModel": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "perfilId": {
+            "type": "number",
+            "example": 1
+          },
+          "perfilNome": {
+            "type": "string",
+            "example": "Administrador"
+          }
+        }
       }
     },
     "securitySchemes": {
