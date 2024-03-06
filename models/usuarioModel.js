@@ -1,4 +1,5 @@
 import Database from "../db/database.js";
+import PerfilModel from "./perfilModel.js";
 
 const banco = new Database();
 
@@ -64,20 +65,20 @@ export default class UsuarioModel {
             "usuNome": this.#usuNome,
             "usuEmail": this.#usuEmail,
             "usuSenha": this.#usuSenha,
-            "perfil": this.#perfil
+            "perfil": this.#perfil.toJSON()
         }
     }
 
     async listar() {
         let lista = [];
-        let sql = "select * from tb_usuario";
+        let sql = "select * from tb_usuario u inner join tb_perfil p on u.per_id = p.per_id";
         
         let rows = await banco.ExecutaComando(sql);
 
         for (let index = 0; index < rows.length; index++) {
             let row = rows[index];
 
-            lista.push(new UsuarioModel(row['usu_id'], row['usu_nome'], row['usu_email'], row['usu_senha'], row['per_id']));     
+            lista.push(new UsuarioModel(row['usu_id'], row['usu_nome'], row['usu_email'], row['usu_senha'], new PerfilModel(row['per_id'], row['per_nome'])));     
         }
 
         return lista;
@@ -88,12 +89,12 @@ export default class UsuarioModel {
         if (this.#usuId == 0){
             var sql = "insert into tb_usuario (usu_nome, usu_email, usu_senha, per_id) values (?, ?, ?, ?)";
 
-            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil];
+            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil.perfilId];
         }
         else{
             var sql = "update tb_usuario set usu_nome = ?, usu_email = ?, usu_senha = ?, per_id = ? where usu_id = ?";
 
-            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil, this.#usuId];
+            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil.perfilId, this.#usuId];
         }
 
         let result = await banco.ExecutaComandoNonQuery(sql, valores);

@@ -1,6 +1,7 @@
 import swaggerAutogen from 'swagger-autogen';
 import LoginModel from './models/loginModel.js';
 import UsuarioModel from './models/usuarioModel.js';
+import PerfilModel from './models/perfilModel.js';
 
 const doc = {
     info: {
@@ -11,7 +12,7 @@ const doc = {
     components: {
       schemas: {
         loginModel: new LoginModel("teste@teste.com", "123").toJSON(),
-        usuarioModel: new UsuarioModel(999, "Fulano", "teste@teste.com.br", "123teste", 1).toJSON()
+        usuarioModel: new UsuarioModel(999, "Fulano", "teste@teste.com.br", "123teste", new PerfilModel(1, 'Administrador')).toJSON()
       },
       securitySchemes: {
         apiKeyAuth: {

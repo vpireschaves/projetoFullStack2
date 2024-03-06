@@ -1,4 +1,5 @@
 import UsuarioModel from "../models/usuarioModel.js";
+import PerfilModel from "../models/perfilModel.js";
 
 export default class UsuarioController {
 
@@ -69,7 +70,7 @@ export default class UsuarioController {
 
                 if (usuId > 0 && usuNome != "" && usuEmail != "" && usuSenha != "" && perfil > 0){
 
-                    let usuario = new UsuarioModel(usuId, usuNome, usuEmail, usuSenha, perfil);
+                    let usuario = new UsuarioModel(usuId, usuNome, usuEmail, usuSenha, new PerfilModel(perfil));
 
                     if (await usuario.obter(usuId) != null){
 
@@ -147,7 +148,7 @@ export default class UsuarioController {
 
                 if(usuNome != "" && usuEmail != "" && usuSenha != "" & perfil > 0){
                     
-                    let usuario = new UsuarioModel(0, usuNome, usuEmail, usuSenha, perfil);
+                    let usuario = new UsuarioModel(0, usuNome, usuEmail, usuSenha, new PerfilModel(perfil));
 
                     let result = await usuario.gravar();
 

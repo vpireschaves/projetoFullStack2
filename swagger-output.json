@@ -379,8 +379,17 @@
             "example": "123teste"
           },
           "perfil": {
-            "type": "number",
-            "example": 1
+            "type": "object",
+            "properties": {
+              "perfilId": {
+                "type": "number",
+                "example": 1
+              },
+              "perfilNome": {
+                "type": "string",
+                "example": "Administrador"
+              }
+            }
           }
         }
       }
