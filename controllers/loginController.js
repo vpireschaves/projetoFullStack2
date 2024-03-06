@@ -6,7 +6,7 @@ export default class LoginController{
         try{
             if (req.body){     
                 let { email, senha } = req.body;
-                let loginModel = new LoginModel();
+                let loginModel = new LoginModel(email, senha);
                 
 
                 if (await loginModel.autenticar()){
