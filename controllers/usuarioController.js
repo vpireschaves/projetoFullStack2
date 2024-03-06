@@ -61,19 +61,31 @@ export default class UsuarioController {
         }  
     }
         
-    atualizar(req, res){
+    async atualizar(req, res){
         try{
             if (req.body){
-                if(Object.keys(req.body).length == 6){
-                    usuarios = usuarios.map(function(value, index){
-    
-                        if (req.body.id === value.id){
-                            return req.body;
+
+                let { usuId, usuNome, usuEmail, usuSenha, perfil } = req.body;
+
+                if (usuId > 0 && usuNome != "" && usuEmail != "" && usuSenha != "" && perfil > 0){
+
+                    let usuario = new UsuarioModel(usuId, usuNome, usuEmail, usuSenha, perfil);
+
+                    if (await usuario.obter(usuId) != null){
+
+                        let result = await usuario.gravar();
+        
+                        if(result){
+                            res.status(200).json({msg: "Usuário atualizado com sucesso!"});
                         }
-                        return value;
-                    })
+                        else {
+                            res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!", detalhes: ex.message});
+                        }   
+                    }           
+                    else{
+                        res.status(404).json({msg: "Usuário não encontrado para alteração!"});
+                    }
     
-                    res.status(200).json({msg: "Usuário atualizado com sucesso!"});
                 }
                 else{
                     res.status(400).json({msg: "Existem campos que não foram preenchidos!"});
