@@ -392,6 +392,10 @@
             }
           }
         }
+      },
+      "perfilModel": {
+        "type": "object",
+        "properties": {}
       }
     },
     "securitySchemes": {
