@@ -68,9 +68,9 @@ export default class UsuarioController {
 
                 let { usuId, usuNome, usuEmail, usuSenha, perfil } = req.body;
 
-                if (usuId > 0 && usuNome != "" && usuEmail != "" && usuSenha != "" && perfil > 0){
+                if (usuId > 0 && usuNome != "" && usuEmail != "" && usuSenha != "" && perfil.perfilId > 0){
 
-                    let usuario = new UsuarioModel(usuId, usuNome, usuEmail, usuSenha, new PerfilModel(perfil));
+                    let usuario = new UsuarioModel(usuId, usuNome, usuEmail, usuSenha, new PerfilModel(perfil.perfilId));
 
                     if (await usuario.obter(usuId) != null){
 
@@ -146,9 +146,9 @@ export default class UsuarioController {
 
                 let { usuNome, usuEmail, usuSenha, perfil } = req.body;
 
-                if(usuNome != "" && usuEmail != "" && usuSenha != "" & perfil > 0){
+                if(usuNome != "" && usuEmail != "" && usuSenha != "" & perfil.perfilId > 0){
                     
-                    let usuario = new UsuarioModel(0, usuNome, usuEmail, usuSenha, new PerfilModel(perfil));
+                    let usuario = new UsuarioModel(0, usuNome, usuEmail, usuSenha, new PerfilModel(perfil.perfilId));
 
                     let result = await usuario.gravar();
 
