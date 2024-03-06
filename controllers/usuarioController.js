@@ -36,15 +36,22 @@ export default class UsuarioController {
         }        
     }
 
-    excluir(req, res){
+    async excluir(req, res){
         try{
-            let usuario = usuarios.filter(x=> x.id == req.params.id);
+            let usuario = new UsuarioModel();
+            let { id } = req.params;
 
-            if(usuario.length > 0){
-                usuarios = usuarios.filter(x => x.id != req.params.id);
-    
-                res.status(200).json({msg: "Exclusão realizada com sucesso!"});
-            }
+            if (await usuario.obter(id) != null){
+
+                let result = await usuario.deletar(id);
+
+                if(result){
+                    res.status(200).json({msg: "Exclusão realizada com sucesso!"});
+                }
+                else {
+                    res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!", detalhes: ex.message});
+                }   
+            }           
             else{
                 res.status(404).json({msg: "Usuário não encontrado para exclusão!"});
             }
