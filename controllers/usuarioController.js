@@ -100,23 +100,29 @@ export default class UsuarioController {
         }
     }
     
-    alterarEmail(req, res){
+    async alterarEmail(req, res){
         try{
-            let achou = false;
             if(req.body){
                 if(req.body.email != ""){
-                    for(let i = 0; i < usuarios.length; i++){
+                    
+                    let { id } = req.params;
+                    let { email } = req.body;
+
+                    let usuario = new UsuarioModel();
+                    
+                    if (await usuario.obter(id) != null){
                         
-                        if (usuarios[i].id == req.params.id){
-                            usuarios[i].email = req.body.email;
-                            achou = true;
+                        let result = await usuario.alterarEmail(id, email);
+
+                        if (result){
+                            res.status(200).json({msg: "E-mail alterado!"});
                         }
+                        else{
+                            res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!", detalhes: ex.message});
+                        }
+
                     }
-    
-                    if(achou){
-                        res.status(200).json({msg: "E-mail alterado!"});
-                    }
-                    else {
+                    else{
                         res.status(404).json({msg: "Usuário não encontrado para alteração de e-mail"});
                     }
                 }
