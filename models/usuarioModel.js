@@ -84,7 +84,7 @@ export default class UsuarioModel {
     }
 
     async gravar() {
-        
+
         if (this.#usuId == 0){
             var sql = "insert into tb_usuario (usu_nome, usu_email, usu_senha, per_id) values (?, ?, ?, ?)";
 
@@ -122,6 +122,17 @@ export default class UsuarioModel {
 
         let result = await banco.ExecutaComandoNonQuery(sql, valores);
 
+        return result;
+    }
+
+    async alterarEmail(id, email){
+        
+        let sql = "update tb_usuario set usu_email = ? where usu_id = ?";
+
+        let valores = [email, id];
+
+        let result = await banco.ExecutaComandoNonQuery(sql, valores);
+        
         return result;
     }
 }
