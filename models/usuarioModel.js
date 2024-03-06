@@ -88,12 +88,12 @@ export default class UsuarioModel {
         if (this.#usuId == 0){
             var sql = "insert into tb_usuario (usu_nome, usu_email, usu_senha, per_id) values (?, ?, ?, ?)";
 
-            var valores = [this.usuNome, this.#usuEmail, this.#usuSenha, this.#perfil];
+            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil];
         }
         else{
             var sql = "update tb_usuario set usu_nome = ?, usu_email = ?, usu_senha = ?, per_id = ? where usu_id = ?";
 
-            var valores = [this.usuNome, this.#usuEmail, this.#usuSenha, this.#perfil. this.#usuId];
+            var valores = [this.#usuNome, this.#usuEmail, this.#usuSenha, this.#perfil, this.#usuId];
         }
 
         let result = await banco.ExecutaComandoNonQuery(sql, valores);
