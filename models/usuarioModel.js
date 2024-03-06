@@ -106,4 +106,14 @@ export default class UsuarioModel {
         
         return null;
     }
+
+    async deletar(id){
+        let sql = "delete from tb_usuario where usu_id = ?";
+
+        let valores = [id];
+
+        let result = await banco.ExecutaComandoNonQuery(sql, valores);
+
+        return result;
+    }
 }
