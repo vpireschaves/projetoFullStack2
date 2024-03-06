@@ -103,14 +103,14 @@ export default class UsuarioModel {
     }
 
     async obter(id) {
-        let sql = "select * from tb_usuario where usu_id = ?";
+        let sql = "select * from tb_usuario u inner join tb_perfil p on u.per_id = p.per_id where usu_id = ?";
 
         let valores = [id];
 
         let row = await banco.ExecutaComando(sql, valores);
 
         if(row.length > 0){
-            return new UsuarioModel(row[0]["usu_id"], row[0]["usu_nome"], row[0]["usu_email"], row[0]["usu_senha"], row[0]["per_id"]);
+            return new UsuarioModel(row[0]["usu_id"], row[0]["usu_nome"], row[0]["usu_email"], row[0]["usu_senha"], new PerfilModel(row[0]["per_id"], row[0]["per_nome"]));
         }
         
         return null;
