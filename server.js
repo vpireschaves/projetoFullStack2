@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 
 //página de documentação
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(outputJson));
+app.use('/documentacao', swaggerUi.serve, swaggerUi.setup(outputJson));
 
 app.use('/usuarios', usuarioRoute);
 app.use('/perfil', perfilRoute);
