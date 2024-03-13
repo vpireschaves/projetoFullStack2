@@ -113,9 +113,24 @@ export default class ImovelModel {
         for (let index = 0; index < rows.length; index++) {
             const row = rows[index];
 
-            lista.push(new ImovelModel(row["imovelId"], row["imovelDescricao"], row["imovelValor"], row["imovelCep"], row["imovelEndereco"], row["imovelBairro"], row["imovelCidade"], row["imovelUf"], row["imovelDisponivel"]));
+            lista.push(new ImovelModel(row["imv_id"], row["imv_descricao"], row["imv_valor"], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_uf"], row["imv_disponivel"]));
         }
 
         return lista;
+    }
+
+    async obter(id){
+        let sql = "select * from tb_imovel where imv_id = ?";
+
+        let valores = [id];
+
+        let rows = await banco.ExecutaComando(sql, valores);
+
+        if(rows.length > 0){
+            let row = rows[0];
+            return new ImovelModel(row["imv_id"], row["imv_descricao"], row["imv_valor"], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_uf"], row["imv_disponivel"]);
+        }
+        
+        return null;
     }
 }
