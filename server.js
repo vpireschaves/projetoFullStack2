@@ -20,7 +20,10 @@ app.use('/documentacao', swaggerUi.serve, swaggerUi.setup(outputJson));
 app.use('/usuarios', usuarioRoute);
 app.use('/perfil', perfilRoute);
 app.use('/login', loginRoute);
-app.use('/imovel',     /* #swagger.tags = ['Imovel']    /* #swagger.security = [{     "apiKeyAuth": [] }] */ imovelRoute);
+app.use('/imovel',     
+    // #swagger.tags = ['Imovel']    
+    /* #swagger.security = [{     "apiKeyAuth": [] }] */
+imovelRoute);
 
 app.listen(5000, function () {
     console.log("backend em execução");
