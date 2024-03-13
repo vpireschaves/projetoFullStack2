@@ -80,4 +80,34 @@ export default class ImovelController {
             res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!"});
         }
     }
+
+    async atualizar (req, res) {
+        try{
+            let { id, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel } = req.body;
+
+            if (id > 0 && descricao != "" && valor != "" && cep != "" && endereco != "" && bairro != "" && cidade != "" && uf != "" && disponivel != "") {
+
+                if (parseFloat(valor) > 0){
+                    let imovel = new ImovelModel(id, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel);
+                    let result = await imovel.gravar();
+
+                    if(result){
+                        res.status(201).json({msg: "Imóvel atualizado com sucesso!"});
+                    }
+                    else {
+                        res.status(500).json({msg: "Erro durante a atualização do imóvel!"});
+                    }
+                }
+                else {
+                    res.status(400).json({msg: "O valor não pode ser negativo!"});
+                }
+            }
+            else {
+                res.status(400).json({msg: "Existem campos que não foram preenchidos!"});
+            }
+        }
+        catch(ex){
+            res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!"});
+        }
+    }
 }
