@@ -57,7 +57,7 @@ export default class ImovelController {
 
             if (descricao != "" && valor != "" && cep != "" && endereco != "" && bairro != "" && cidade != "" && uf != "" && disponivel != "") {
 
-                if (parseFloat(valor) < 0){
+                if (parseFloat(valor) > 0){
                     let imovel = new ImovelModel(0, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel);
                     let result = await imovel.gravar();
 
@@ -87,7 +87,7 @@ export default class ImovelController {
 
             if (id > 0 && descricao != "" && valor != "" && cep != "" && endereco != "" && bairro != "" && cidade != "" && uf != "" && disponivel != "") {
 
-                if (parseFloat(valor) < 0){
+                if (parseFloat(valor) > 0){
                     let imovel = new ImovelModel(id, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel);
                     let result = await imovel.gravar();
 
