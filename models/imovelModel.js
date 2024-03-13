@@ -141,4 +141,38 @@ export default class ImovelModel {
         
         return null;
     }
+
+    async excluir(id){
+        let sql = "delete from tb_imovel where imv_id = ?";
+
+        let valores = [id];
+
+        let result = await banco.ExecutaComandoNonQuery(sql, valores);
+
+        return result;
+    }
+
+    async gravar(){
+        let sql = '';
+        let valores = [];
+
+        if (this.#imovelId == 0){
+            //inserção
+            
+            sql = "insert into tb_imovel (imv_descricao, imv_valor, imv_cep, imv_endereco, imv_bairro, imv_cidade, imv_uf, imv_disponivel) values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+            valores = [this.#imovelDescricao, this.#imovelValor, this.#imovelCep, this.#imovelEndereco, this.#imovelBairro, this.#imovelCidade, this.#imovelUf, this.#imovelDisponivel];
+        }
+        else {
+            //alteração
+
+            sql = "update tb_imovel set imv_descricao = ?, imv_valor = ?, imv_cep = ?, imv_endereco = ?, imv_bairro = ?, imv_cidade = ?, imv_uf = ?, imv_disponivel = ? where imv_id = ?";
+
+            valores = [this.#imovelDescricao, this.#imovelValor, this.#imovelCep, this.#imovelEndereco, this.#imovelBairro, this.#imovelCidade, this.#imovelUf, this.#imovelDisponivel, this.#imovelId];
+        }
+
+        let result = await banco.ExecutaComandoNonQuery(sql, valores);
+
+        return result;
+    }
 }
