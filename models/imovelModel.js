@@ -103,6 +103,19 @@ export default class ImovelModel {
         }
     }
 
+    toMap(rows){
+
+        let lista = [];
+
+        for (let index = 0; index < rows.length; index++) {
+            const row = rows[index];
+
+            lista.push(new ImovelModel(row["imv_id"], row["imv_descricao"], row["imv_valor"], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_uf"], row["imv_disponivel"]));
+        }
+
+        return lista;
+    }
+
     async listar(){
 
         let lista = [];
@@ -110,11 +123,7 @@ export default class ImovelModel {
         let sql = "select * from tb_imovel";
         let rows = await banco.ExecutaComando(sql);
 
-        for (let index = 0; index < rows.length; index++) {
-            const row = rows[index];
-
-            lista.push(new ImovelModel(row["imv_id"], row["imv_descricao"], row["imv_valor"], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_uf"], row["imv_disponivel"]));
-        }
+        lista = this.toMap(rows);
 
         return lista;
     }
@@ -127,8 +136,7 @@ export default class ImovelModel {
         let rows = await banco.ExecutaComando(sql, valores);
 
         if(rows.length > 0){
-            let row = rows[0];
-            return new ImovelModel(row["imv_id"], row["imv_descricao"], row["imv_valor"], row["imv_cep"], row["imv_endereco"], row["imv_bairro"], row["imv_cidade"], row["imv_uf"], row["imv_disponivel"]);
+            return this.toMap(rows);
         }
         
         return null;
