@@ -53,12 +53,12 @@ export default class ImovelController {
 
     async cadastrar (req, res) {
         try{
-            let { descricao, valor, cep, endereco, bairro, cidade, uf, disponivel } = req.body;
+            let { imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel } = req.body;
 
-            if (descricao != "" && valor != "" && cep != "" && endereco != "" && bairro != "" && cidade != "" && uf != "" && disponivel != "") {
+            if (imovelDescricao != "" && imovelValor != "" && imovelCep != "" && imovelEndereco != "" && imovelBairro != "" && imovelCidade != "" && imovelUf != "" && imovelDisponivel != "") {
 
-                if (parseFloat(valor) > 0){
-                    let imovel = new ImovelModel(0, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel);
+                if (parseFloat(imovelValor) > 0){
+                    let imovel = new ImovelModel(0, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel);
                     let result = await imovel.gravar();
 
                     if(result){
@@ -69,7 +69,7 @@ export default class ImovelController {
                     }
                 }
                 else {
-                    res.status(400).json({msg: "O valor não pode ser negativo!"});
+                    res.status(400).json({msg: "O imovelValor não pode ser negativo!"});
                 }
             }
             else {
@@ -83,12 +83,12 @@ export default class ImovelController {
 
     async atualizar (req, res) {
         try{
-            let { id, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel } = req.body;
+            let { ImovelId, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel } = req.body;
 
-            if (id > 0 && descricao != "" && valor != "" && cep != "" && endereco != "" && bairro != "" && cidade != "" && uf != "" && disponivel != "") {
+            if (ImovelId > 0 && imovelDescricao != "" && imovelValor != "" && imovelCep != "" && imovelEndereco != "" && imovelBairro != "" && imovelCidade != "" && imovelUf != "" && imovelDisponivel != "") {
 
-                if (parseFloat(valor) > 0){
-                    let imovel = new ImovelModel(id, descricao, valor, cep, endereco, bairro, cidade, uf, disponivel);
+                if (parseFloat(imovelValor) > 0){
+                    let imovel = new ImovelModel(id, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel);
                     let result = await imovel.gravar();
 
                     if(result){
@@ -99,7 +99,7 @@ export default class ImovelController {
                     }
                 }
                 else {
-                    res.status(400).json({msg: "O valor não pode ser negativo!"});
+                    res.status(400).json({msg: "O imovelValor não pode ser negativo!"});
                 }
             }
             else {
