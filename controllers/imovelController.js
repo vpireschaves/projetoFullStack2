@@ -32,4 +32,23 @@ export default class ImovelController {
             res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!"});
         }
     }
+
+    async excluir (req, res) {
+        try {
+            let { id } = req.params;
+            let imovel = new ImovelModel();
+            let result = await imovel.excluir(id);
+            
+            if(result){
+                res.status(200).json({msg: `Imóvel com o id ${id} excluído com sucesso!`});
+            }
+            else {
+                res.status(500).json({msg: "Erro durante a exclusão do imóvel!"});
+            }
+        }
+        catch(ex){
+            res.status(500).json({msg: "Erro inesperado! Entre em contato com o nosso suporte técnico!"});
+        }
+    
+    }
 }
