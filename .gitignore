@@ -131,3 +131,6 @@ dist
 
 #database
 db/
+
+#swagger-output
+swagger-output.json
