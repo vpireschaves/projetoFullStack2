@@ -13,7 +13,7 @@ export default class LoginController{
 
                 if (await loginModel.autenticar()){
                     let usuario = new UsuarioModel();
-                    let user = await usuario.obterPorEmailSenha(email, senha);
+                    usuario = await usuario.obterPorEmailSenha(email, senha);
                     usuario.usuSenha = "";
                     let auth = new Autenticacao();
                     let token = auth.gerarToken(usuario);
