@@ -6,6 +6,7 @@ const JWT_SEGREDO = "M3H4CK34R4M";
 export default class Autenticacao {
 
     validar(req, res, next){
+        jwt.verify( )
 
         if(req.headers.chaveapi == "PFSII"){
             next();
