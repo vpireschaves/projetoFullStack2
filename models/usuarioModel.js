@@ -116,6 +116,20 @@ export default class UsuarioModel {
         return null;
     }
 
+    async obterPorEmail(email, senha){
+        let sql = "select * from tb_usuario where usu_email = ? and usu_senha = ?";
+
+        let valores = [email, senha];
+
+        let row = await banco.ExecutaComando(sql, valores);
+
+        if(row.length > 0){
+            return new UsuarioModel(row[0]["usu_id"], row[0]["usu_nome"], row[0]["usu_email"], row[0]["usu_senha"], new PerfilModel(row[0]["per_id"], row[0]["per_nome"]));
+        }
+        
+        return null;
+    }
+
     async deletar(id){
         let sql = "delete from tb_usuario where usu_id = ?";
 

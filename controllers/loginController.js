@@ -1,3 +1,4 @@
+import Autenticacao from "../middlewares/autenticacao.js";
 import LoginModel from "../models/loginModel.js";
 
 export default class LoginController{
@@ -10,6 +11,8 @@ export default class LoginController{
                 
 
                 if (await loginModel.autenticar()){
+                    let auth = new Autenticacao();
+                    let token = auth.gerarToken
                     res.status(200).json({tokenAcesso: "PFSII"});
                 }
                 else{
