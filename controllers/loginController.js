@@ -1,5 +1,6 @@
 import Autenticacao from "../middlewares/autenticacao.js";
 import LoginModel from "../models/loginModel.js";
+import UsuarioModel from "../models/usuarioModel.js";
 
 export default class LoginController{
     
@@ -11,9 +12,12 @@ export default class LoginController{
                 
 
                 if (await loginModel.autenticar()){
+                    let usuario = new UsuarioModel();
+                    let user = await usuario.obterPorEmailSenha(email, senha);
+                    usuario.usuSenha = "";
                     let auth = new Autenticacao();
-                    let token = auth.gerarToken
-                    res.status(200).json({tokenAcesso: "PFSII"});
+                    let token = auth.gerarToken(usuario);
+                    res.status(200).json({tokenAcesso: token});
                 }
                 else{
                     res.status(401).json({msg: "Nome e/ou e-mail incorretos!"});

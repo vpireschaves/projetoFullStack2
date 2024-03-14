@@ -116,7 +116,7 @@ export default class UsuarioModel {
         return null;
     }
 
-    async obterPorEmail(email, senha){
+    async obterPorEmailSenha(email, senha){
         let sql = "select * from tb_usuario where usu_email = ? and usu_senha = ?";
 
         let valores = [email, senha];
