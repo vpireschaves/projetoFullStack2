@@ -69,7 +69,7 @@ export default class ImovelController {
                     }
                 }
                 else {
-                    res.status(400).json({msg: "O imovelValor não pode ser negativo!"});
+                    res.status(400).json({msg: "O valor não pode ser negativo!"});
                 }
             }
             else {
@@ -83,12 +83,12 @@ export default class ImovelController {
 
     async atualizar (req, res) {
         try{
-            let { ImovelId, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel } = req.body;
+            let { imovelId, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel } = req.body;
 
-            if (ImovelId > 0 && imovelDescricao != "" && imovelValor != "" && imovelCep != "" && imovelEndereco != "" && imovelBairro != "" && imovelCidade != "" && imovelUf != "" && imovelDisponivel != "") {
+            if (imovelId > 0 && imovelDescricao != "" && imovelValor != "" && imovelCep != "" && imovelEndereco != "" && imovelBairro != "" && imovelCidade != "" && imovelUf != "" && imovelDisponivel != "") {
 
                 if (parseFloat(imovelValor) > 0){
-                    let imovel = new ImovelModel(id, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel);
+                    let imovel = new ImovelModel(imovelId, imovelDescricao, imovelValor, imovelCep, imovelEndereco, imovelBairro, imovelCidade, imovelUf, imovelDisponivel);
                     let result = await imovel.gravar();
 
                     if(result){
@@ -99,7 +99,7 @@ export default class ImovelController {
                     }
                 }
                 else {
-                    res.status(400).json({msg: "O imovelValor não pode ser negativo!"});
+                    res.status(400).json({msg: "O valor não pode ser negativo!"});
                 }
             }
             else {
