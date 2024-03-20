@@ -11,8 +11,8 @@ export default class Autenticacao {
         if(req.cookies.jwt){
 
             try{
-                let jwt = req.cookies.jwt;
-                let usuario = jwt.verify(jwt, JWT_SEGREDO);
+                let token = req.cookies.jwt;
+                let usuario = jwt.verify(token, JWT_SEGREDO);
 
                 let usuarioModel = new UsuarioModel();
                 usuarioModel = await usuarioModel.obter(usuario.usuId);
