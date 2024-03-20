@@ -10,6 +10,8 @@ export default class Autenticacao {
         
         if(req.cookies.jwt){
 
+            let token = "";
+
             try{
                 let token = req.cookies.jwt;
                 let usuario = jwt.verify(token, JWT_SEGREDO);
@@ -25,7 +27,19 @@ export default class Autenticacao {
                 }
             }
             catch(ex){
-                res.status(401).json({msg: "Usuário não autorizado"});
+
+                if(ex.name == "TokenExpiredError"){
+                    let usuarioRecuperado = jwt.verify(token, JWT_SEGREDO, { ignoreExpiration: true });
+
+                    //gera o token novamente e escreve na cookie de resposta
+                    let novoToken = this.gerarToken(usuarioRecuperado);
+                    res.cookie(jwt, novoToken, {httpOnly: true});
+
+                    next();
+                }
+                else{
+                    res.status(401).json({msg: "Usuário não autorizado"});
+                }
             }
         }
         else {
@@ -35,6 +49,6 @@ export default class Autenticacao {
     }
 
     gerarToken(usuario){
-        return jwt.sign(JSON.stringify(usuario.toJSON()), JWT_SEGREDO);
+        return jwt.sign(usuario.toJSON(), JWT_SEGREDO, { expiresIn: 60 });
     }
 }
