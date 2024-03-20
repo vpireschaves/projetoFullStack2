@@ -10,10 +10,9 @@ export default class Autenticacao {
         
         if(req.cookies.jwt){
 
-            let token = "";
+            let token = req.cookies.jwt;
 
             try{
-                let token = req.cookies.jwt;
                 let usuario = jwt.verify(token, JWT_SEGREDO);
 
                 let usuarioModel = new UsuarioModel();
@@ -35,7 +34,12 @@ export default class Autenticacao {
 
                     let auth = new Autenticacao();
 
-                    let novoToken = auth.gerarToken(usuarioRecuperado);
+                    let novoToken = auth.gerarToken({
+                        usuId: usuarioRecuperado.usuId,
+                        usuNome: usuarioRecuperado.usuNome,
+                        usuEmail: usuarioRecuperado.usuEmail,
+                        perfil: usuarioRecuperado.perfil
+                    });
                     res.cookie(jwt, novoToken, {httpOnly: true});
 
                     next();
@@ -52,6 +56,6 @@ export default class Autenticacao {
     }
 
     gerarToken(usuario){
-        return jwt.sign(usuario.toJSON(), JWT_SEGREDO, { expiresIn: 60 });
+        return jwt.sign(usuario, JWT_SEGREDO, { expiresIn: 60 });
     }
 }

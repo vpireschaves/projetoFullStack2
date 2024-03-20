@@ -16,7 +16,7 @@ export default class LoginController{
                     usuario = await usuario.obterPorEmailSenha(email, senha);
                     usuario.usuSenha = "";
                     let auth = new Autenticacao();
-                    let token = auth.gerarToken(usuario);
+                    let token = auth.gerarToken(usuario.toJSON());
 
                     res.cookie("jwt", token, {httpOnly: true});
 
