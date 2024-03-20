@@ -3,6 +3,7 @@ import usuarioRoute from './routes/usuariosRoute.js';
 import perfilRoute from './routes/perfilRoute.js';
 import loginRoute from './routes/loginRoute.js';
 import imovelRoute from './routes/imovelRoute.js';
+import locacaoRoute from './routes/locacaoRoute.js';
 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -25,7 +26,11 @@ app.use('/login', loginRoute);
 app.use('/imovel',     
     // #swagger.tags = ['Imovel']    
     /* #swagger.security = [{     "bearerAuth": [] }] */
-imovelRoute);
+    imovelRoute);
+app.use('/locacao', 
+    // #swagger.tags = ['Locação']    
+    /* #swagger.security = [{     "bearerAuth": [] }] */
+    locacaoRoute);
 
 app.listen(5000, function () {
     console.log("backend em execução");
