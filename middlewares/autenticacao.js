@@ -32,7 +32,10 @@ export default class Autenticacao {
                     let usuarioRecuperado = jwt.verify(token, JWT_SEGREDO, { ignoreExpiration: true });
 
                     //gera o token novamente e escreve na cookie de resposta
-                    let novoToken = this.gerarToken(usuarioRecuperado);
+
+                    let auth = new Autenticacao();
+
+                    let novoToken = auth.gerarToken(usuarioRecuperado);
                     res.cookie(jwt, novoToken, {httpOnly: true});
 
                     next();
