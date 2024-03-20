@@ -17,6 +17,9 @@ export default class LoginController{
                     usuario.usuSenha = "";
                     let auth = new Autenticacao();
                     let token = auth.gerarToken(usuario);
+
+                    res.cookie("jwt", token, {httpOnly: true});
+
                     res.status(200).json({tokenAcesso: token});
                 }
                 else{

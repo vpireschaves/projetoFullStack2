@@ -10,15 +10,14 @@ const doc = {
       description: 'API criada utilizando o padrão REST na disciplina de Programação Fullstack 2'
     },
     host: 'localhost:5000',
-    securityDefinitions: {
-      apiKeyAuth: {
-        type: 'apiKey',
-        in: 'header',
-        name: 'chaveapi',
-        description: 'Chave de acesso para a utilização da API'
-      }
-    },
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
       schemas: {
         loginModel: new LoginModel("teste@teste.com", "123").toJSON(),
         usuarioModel: new UsuarioModel(999, "Fulano", "teste@teste.com.br", "123teste", new PerfilModel(1, 'Administrador')).toJSON(),

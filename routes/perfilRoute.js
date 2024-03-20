@@ -12,7 +12,7 @@ router.get('/', auth.validar, (req, res) => {
      // #swagger.tags = ['Perfil']
      // #swagger.summary = 'Lista os perfis de acesso'
      /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
 
     ctrl.listar(req, res);

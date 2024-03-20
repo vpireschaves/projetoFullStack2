@@ -12,7 +12,7 @@ router.get('/', auth.validar, (req, res) => {
     // #swagger.tags = ['Usuários']
     // #swagger.summary = 'Lista os usuários cadastrados
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
 
     ctrl.listar(req, res);
@@ -24,7 +24,7 @@ router.get('/:id', auth.validar, (req, res) => {
     // #swagger.tags = ['Usuários']
     // #swagger.summary = 'Retorna um usuário baseado em um id'
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
 
     ctrl.obter(req, res);
@@ -36,7 +36,7 @@ router.post('/', auth.validar, (req, res) => {
     // #swagger.tags = ['Usuários']
     // #swagger.summary = 'Cadastra um usuário no banco de dados'
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
     /*  #swagger.requestBody = {
             required: true,
@@ -58,7 +58,7 @@ router.delete('/excluir/:id', auth.validar, (req, res) => {
     // #swagger.tags = ['Usuários']
     // #swagger.summary = 'Exclui um usuário baseado em um id'
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
 
     ctrl.excluir(req, res);
@@ -69,7 +69,7 @@ router.put('/', auth.validar, (req, res) => {
     // #swagger.tags = ['Usuários']
     // #swagger.summary = 'Atualiza todos os atributos de um usuário no banco de dados'
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
     /*  #swagger.requestBody = {
             required: true,
@@ -92,7 +92,7 @@ router.patch('/alterar-email/:id', auth.validar, (req, res) => {
     // #swagger.summary = 'Atualiza apenas o e-mail de um usuário'
     // #swagger.parameters['id'] = { description: 'ID do usuário a ser alterado'}
     /* #swagger.security = [{
-            "apiKeyAuth": []
+            "bearerAuth": []
     }] */
 
     ctrl.alterarEmail(req, res);

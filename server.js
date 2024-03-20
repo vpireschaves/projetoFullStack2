@@ -22,7 +22,7 @@ app.use('/perfil', perfilRoute);
 app.use('/login', loginRoute);
 app.use('/imovel',     
     // #swagger.tags = ['Imovel']    
-    /* #swagger.security = [{     "apiKeyAuth": [] }] */
+    /* #swagger.security = [{     "bearerAuth": [] }] */
 imovelRoute);
 
 app.listen(5000, function () {

@@ -1,15 +1,31 @@
 import jwt from 'jsonwebtoken';
+import UsuarioModel from "../models/usuarioModel.js";
 
 //segredo utilizado para o JWT - apenas de teste
 const JWT_SEGREDO = "M3H4CK34R4M";
 
 export default class Autenticacao {
 
-    validar(req, res, next){
-        jwt.verify( )
+    async validar(req, res, next){
+        
+        if(req.headers.chaveapi){
 
-        if(req.headers.chaveapi == "PFSII"){
-            next();
+            try{
+                let usuario = jwt.verify(req.headers.chaveapi, JWT_SEGREDO);
+
+                let usuarioModel = new UsuarioModel();
+                usuarioModel = await usuarioModel.obter(usuario.usuId);
+
+                if (usuarioModel != null){
+                    next();
+                }
+                else{
+                    res.status(401).json({msg: "Usuário inválido"});
+                }
+            }
+            catch(ex){
+                res.status(401).json({msg: "Usuário não autorizado"});
+            }
         }
         else {
             res.status(401).json({msg: "Usuário não autorizado"});
