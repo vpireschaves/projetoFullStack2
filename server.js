@@ -9,9 +9,11 @@ const require = createRequire(import.meta.url);
 const outputJson = require ('./swagger-output.json');
 
 import swaggerUi from 'swagger-ui-express';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 
 //página de documentação

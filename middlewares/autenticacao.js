@@ -8,10 +8,11 @@ export default class Autenticacao {
 
     async validar(req, res, next){
         
-        if(req.headers.chaveapi){
+        if(req.cookies.jwt){
 
             try{
-                let usuario = jwt.verify(req.headers.chaveapi, JWT_SEGREDO);
+                let jwt = req.cookies.jwt;
+                let usuario = jwt.verify(jwt, JWT_SEGREDO);
 
                 let usuarioModel = new UsuarioModel();
                 usuarioModel = await usuarioModel.obter(usuario.usuId);
