@@ -136,7 +136,7 @@ export default class ImovelModel {
         let rows = await banco.ExecutaComando(sql, valores);
 
         if(rows.length > 0){
-            return this.toMap(rows);
+            return this.toMap(rows)[0];
         }
         
         return null;

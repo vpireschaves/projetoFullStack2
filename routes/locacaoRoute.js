@@ -13,7 +13,8 @@ router.post('/alugar', auth.validar, (req, res) => {
             required: true,
             content: {
                 "application/json": {
-                    schema: {"
+                    schema: {
+                        $ref: ""
                     }  
                 }
             }

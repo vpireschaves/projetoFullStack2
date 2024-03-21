@@ -1,4 +1,6 @@
+import Database from "../db/database.js";
 
+const banco = new Database();
 
 export default class ContratoModel {
     

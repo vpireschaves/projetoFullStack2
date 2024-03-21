@@ -15,7 +15,7 @@ export default class LocacaoController {
                 let imovel = new ImovelModel();
                 imovel = await imovel.obter(imovelId);
 
-                if (imovel.imovelDisponivel == 'S'){
+                if (imovel.imovelDisponivel == 'S') {
                     let usuarioId = req.usuarioLogado.usuId;
                     let contrato = new ContratoModel(0, new ImovelModel(imovelId), new UsuarioModel(usuarioId));
 
@@ -38,6 +38,8 @@ export default class LocacaoController {
                         aluguel.gravar();
 
                     }
+
+                    res.status(200).json({ msg: "Contrato gerado com sucesso!" });
                 }
                 else{
                     res.status(400).json({ msg: "Imóvel indisponível para locação!" });
