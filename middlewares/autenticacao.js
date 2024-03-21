@@ -19,6 +19,7 @@ export default class Autenticacao {
                 usuarioModel = await usuarioModel.obter(usuario.usuId);
 
                 if (usuarioModel != null){
+                    req.usuarioLogado = usuarioModel;
                     next();
                 }
                 else{
@@ -41,7 +42,7 @@ export default class Autenticacao {
                         perfil: usuarioRecuperado.perfil
                     });
                     res.cookie(jwt, novoToken, {httpOnly: true});
-
+                    req.usuarioLogado = usuarioRecuperado;
                     next();
                 }
                 else{
