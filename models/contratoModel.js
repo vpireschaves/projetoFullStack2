@@ -48,7 +48,7 @@ export default class ContratoModel {
         let sql = "INSERT INTO tb_contrato (imv_id, usu_id) VALUES (?, ?)";
         let valores = [this.#imovel.imovelId, this.#usuario.usuId];
     
-        let idGerado = await banco.ExecutaComandoNonQuery(sql, valores);
+        let idGerado = await banco.ExecutaComandoLastInserted(sql, valores);
 
         return idGerado;
     }
