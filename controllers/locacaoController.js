@@ -1,3 +1,4 @@
+import Database from "../db/database.js";
 import AluguelModel from "../models/aluguelModel.js";
 import ContratoModel from "../models/contratoModel.js";
 import ImovelModel from "../models/imovelModel.js";
@@ -7,8 +8,10 @@ export default class LocacaoController {
 
     async locar (req, res) {
 
-        try {
+        let banco = new Database();
 
+        try {
+            
             if (req.body) {
                 let { imovelId } = req.body;
     
@@ -18,10 +21,13 @@ export default class LocacaoController {
                     imovel = await imovel.obter(imovelId);
     
                     if (imovel.imovelDisponivel == 'S') {
+                        
+                        await banco.AbreTransacao();
+
                         let usuarioId = req.usuarioLogado.usuId;
                         let contrato = new ContratoModel(0, new ImovelModel(imovelId), new UsuarioModel(usuarioId));
     
-                        contrato.contratoId = await contrato.gravar();
+                        contrato.contratoId = await contrato.gravar(banco);
     
                         //gerar um ano de aluguel para o contrato
                         for (let i = 0; i < 12; i++) {
@@ -37,11 +43,13 @@ export default class LocacaoController {
                             aluguel.aluguelMes = mes;
                             aluguel.aluguelVencimento = dataVencimento;
     
-                            aluguel.gravar();
+                            await aluguel.gravar(banco);
                         }
     
                         imovel.imovelDisponivel = "N";
-                        imovel.gravar();
+                        await imovel.gravar(banco);
+
+                        await banco.Commit();
     
                         res.status(200).json({ msg: "Imóvel locado com sucesso!" });
                     }
@@ -49,20 +57,20 @@ export default class LocacaoController {
                         res.status(400).json({ msg: "Imóvel indisponível para locação!" });
                     }
     
-                    
-    
                 }
                 else {
                     res.status(400).json({ msg: "O corpo da requisição não possui o id do imóvel." });
                 }
-    
-    
+
             }
             else {
                 res.status(400).json({ msg: "Requisição inválida!" });
             }
 
         } catch (error) {
+
+            await banco.Rollback();
+            
             res.status(500).json({msg: "Erro interno de servidor!"});
         }
 

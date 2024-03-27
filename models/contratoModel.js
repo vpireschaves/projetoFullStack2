@@ -1,6 +1,6 @@
 import Database from "../db/database.js";
 
-const banco = new Database();
+let banco = new Database();
 
 export default class ContratoModel {
     
@@ -46,7 +46,12 @@ export default class ContratoModel {
         }
     }
 
-    async gravar(){
+    async gravar(bd){
+
+        if(bd != null){
+            banco = bd;
+        }
+
         let sql = "INSERT INTO tb_contrato (imv_id, usu_id) VALUES (?, ?)";
         let valores = [this.#imovel.imovelId, this.#usuario.usuId];
     

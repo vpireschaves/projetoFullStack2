@@ -1,6 +1,6 @@
 import Database from "../db/database.js";
 
-const banco = new Database();
+let banco = new Database();
 
 export default class AluguelModel {
     #aluguelId;
@@ -67,7 +67,11 @@ export default class AluguelModel {
         this.#contrato = contrato;
     }
 
-    async gravar() {
+    async gravar(bd) {
+
+        if(bd != null){
+            banco = bd;
+        }
         
         let sql = "INSERT INTO tb_aluguel (alu_mes, alu_vencimento, alu_valor, alu_pago, ctr_id) VALUES (?, ?, ?, ?, ?)";
 
